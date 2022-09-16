@@ -14,6 +14,40 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String textResults = "0";
   String textOperations = "";
+  String normalized = "";
+  String aux = "";
+
+  void number(String value){
+    aux += value;
+    print("aux: ${aux}");
+  }
+
+  void symbol(String value, String norm, int type){
+    if (aux == ""){
+      print("Error");                        
+    }
+    else {
+      textOperations += aux;
+      textOperations += value;
+
+      if(type == 1){
+        String norm_aux = norm + "(" + aux + ")";
+        normalized += norm_aux;
+      }
+      if (type == 3){
+        String norm_aux = norm + "(" + aux + ", 2)";
+        normalized += norm_aux;
+      }
+      else {
+        normalized += aux;
+        normalized += norm;
+      }
+      aux = "";
+    }
+    print("norm: ${normalized}");
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.amber,
               child: Row(
                 children: [
-                  Text(textOperations),
+                  Text(textOperations+aux),
                 ],
               ),
             ),
@@ -115,21 +149,21 @@ class _HomePageState extends State<HomePage> {
                         title: "x2",
                         method: () {
                           setState(() {
-                            textOperations += "^";
+                            symbol("", "pow", 3);
                           });
                         }),
                     ButtonModel(
                         title: "√",
                         method: () {
                           setState(() {
-                            textOperations += "√";
+                            symbol("√", "sqrt", 1);
                           });
                         }),
                     ButtonModel(
                         title: "/",
                         method: () {
                           setState(() {
-                            textOperations += "/";
+                            symbol("/", "/", 2);
                           });
                         }),
                   ]),
@@ -138,28 +172,28 @@ class _HomePageState extends State<HomePage> {
                         title: "7",
                         method: () {
                           setState(() {
-                            textOperations += "7";
+                            aux += "7";
                           });
                         }),
                     ButtonModel(
                         title: "8",
                         method: () {
                           setState(() {
-                            textOperations += "8";
+                            aux += "8";
                           });
                         }),
                     ButtonModel(
                         title: "9",
                         method: () {
                           setState(() {
-                            textOperations += "9";
+                            aux += "9";
                           });
                         }),
                     ButtonModel(
                         title: "x",
                         method: () {
                           setState(() {
-                            textOperations += "*";
+                            symbol("x", "*", 2);
                           });
                         }),
                   ]),
@@ -168,28 +202,28 @@ class _HomePageState extends State<HomePage> {
                         title: "4",
                         method: () {
                           setState(() {
-                            textOperations += "4";
+                            aux += "4";
                           });
                         }),
                     ButtonModel(
                         title: "5",
                         method: () {
                           setState(() {
-                            textOperations += "5";
+                            aux += "5";
                           });
                         }),
                     ButtonModel(
                         title: "6",
                         method: () {
                           setState(() {
-                            textOperations += "6";
+                            aux += "6";
                           });
                         }),
                     ButtonModel(
                         title: "-",
                         method: () {
                           setState(() {
-                            textOperations += "-";
+                            symbol("-", "-", 2);
                           });
                         }),
                   ]),
@@ -198,28 +232,29 @@ class _HomePageState extends State<HomePage> {
                         title: "1",
                         method: () {
                           setState(() {
-                            textOperations += "1";
+                            aux += "1";
                           });
                         }),
                     ButtonModel(
                         title: "2",
                         method: () {
                           setState(() {
-                            textOperations += "2";
+                            aux += "2";
                           });
                         }),
                     ButtonModel(
                         title: "3",
                         method: () {
                           setState(() {
-                            textOperations += "3";
+                            aux += "3";
+                            print("aux: ${aux}");
                           });
                         }),
                     ButtonModel(
                         title: "+",
                         method: () {
                           setState(() {
-                            textOperations += "+";
+                            symbol("+", "+", 2);
                           });
                         }),
                   ]),
